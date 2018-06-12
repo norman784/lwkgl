@@ -1,0 +1,57 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
+        }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:+"
+    }
+}
+
+apply plugin: 'konan'
+
+konanArtifacts {
+    interop('cglew') {
+        defFile 'src/main/org/lwkgl/glew/cglew.def'
+    }
+
+    interop('cglfw') {
+        defFile 'src/main/org/lwkgl/glfw/cglfw.def'
+    }
+
+    interop('cstb') {
+        defFile 'src/main/org/lwkgl/stb/cstb.def'
+        includeDirs "${project.rootDir}/src/main/org/lwkgl/stb/c"
+    }
+
+    library('lwkgl-common') {
+        srcDir 'src/main/org/lwkgl/common'
+    }
+
+    library('lwkgl-glew') {
+        srcDir 'src/main/org/lwkgl/glew/kotlin'
+        libraries {
+            artifact 'cglew'
+        }
+    }
+
+    library('lwkgl-glfw') {
+        srcDir 'src/main/org/lwkgl/glfw/kotlin'
+        libraries {
+            artifact 'cglfw'
+        }
+    }
+
+    library('lwkgl-opengl') {
+        srcDir 'src/main/org/lwkgl/opengl'
+    }
+
+    library('lwkgl-stb') {
+        srcDir 'src/main/org/lwkgl/stb/kotlin'
+        libraries {
+            artifact 'cstb'
+        }
+    }
+}

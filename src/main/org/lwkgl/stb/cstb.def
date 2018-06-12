@@ -1,0 +1,3 @@
+headers = stb_dxt.h stb_easy_font.h stb_image.h stb_image_resize.h stb_image_write.h stb_perlin.h \
+    stb_rect_pack.h stb_truetype.h
+compilerOpts = -DSTB_IMAGE_IMPLEMENTATION=1
